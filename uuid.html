@@ -7,21 +7,24 @@
 	</head>
 	<body ng-app="demoApp">
 		<div ng-controller='demoCtl'>
-			<div>
-				<span>
+			<div class="row">
+				<div class="span10 offset2">
 					{{new}}
 					<br/>
-					<small>{{nInfo | date:medium}}
-				</span>
-				<button class="btn btn-primary" ng-click='generateUuid()'>Generate UUID</button>
+					<small>{{nInfo | date:medium}}</small>
+					<br/>
+					<button class="btn btn-primary" ng-click='generateUuid()'>Generate UUID</button>
+				</div>
 			</div>
-			<div>
-				<span>
+			<div class="row">
+				<div class="span10 offset2">
 					{{empty}}
 					<br/>
 					<small>{{eInfo | date:medium}}
-				</span>
-				<button class="btn btn-primary" ng-click='showEmpty()'>Show empty UUID</button>
+					<br/>
+					<button class="btn btn-primary" ng-click='showEmpty()'>Show empty UUID</button>
+				</div>
+			</div>
 		</div>
 
 		<script>
