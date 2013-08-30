@@ -9,6 +9,7 @@ Operations:
 + uuid.empty() - get's an empty UUID ('00000000-0000-0000-0000-000000000000') 
 
 Usage:
+
 1.  download the file [lvl-uuid.js](https://raw.github.com/logicbomb/ng-directives/master/src/script/lvl-uuid.js)
 
 2.  include it in your html
