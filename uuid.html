@@ -8,16 +8,15 @@
 	<body ng-app="demoApp">
 		<div ng-controller='demoCtl'>
 			<div class="row">
-				<div class="span10 offset2">
+				<div class="span6">
 					{{new}}
 					<br/>
 					<small>{{nInfo | date:mediumDate}} {{nInfo | date:mediumTime}}</small>
 					<br/>
 					<button class="btn btn-primary" ng-click='generateUuid()'>Generate UUID</button>
 				</div>
-			</div>
-			<div class="row">
-				<div class="span10 offset2">
+
+				<div class="span6">
 					{{empty}}
 					<br/>
 					<small>{{eInfo | date:mediumDate}} {{eInfo | date:mediumTime}}</small>
