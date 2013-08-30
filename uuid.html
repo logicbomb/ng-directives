@@ -8,7 +8,7 @@
 	<body ng-app="demoApp">
 		<div ng-controller='demoCtl'>
 			<div class="row">
-				<div class="span6">
+				<div class="col-md-6">
 					{{new}}
 					<br/>
 					<small>{{nInfo | date:mediumDate}} {{nInfo | date:mediumTime}}</small>
@@ -16,7 +16,7 @@
 					<button class="btn btn-primary" ng-click='generateUuid()'>Generate UUID</button>
 				</div>
 
-				<div class="span6">
+				<div class="col-md-6">
 					{{empty}}
 					<br/>
 					<small>{{eInfo | date:mediumDate}} {{eInfo | date:mediumTime}}</small>
