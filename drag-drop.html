@@ -1,0 +1,113 @@
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+		<script src="script/lvl-uuid.js"></script>
+		<script src="script/lvl-draggable.js"></script>
+		<script src="script/lvl-drop-target.js"></script>
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			.lvl-over {
+				/* applied to a drop target when a draggable object is over it */
+				border: 2px dotted black;
+			}
+
+			.lvl-target {
+				/* applied to all drop targets when a drag operation begins, used to indicate drop targets on a page */
+				background-color: #ddd;
+				opacity: .5;
+			}
+
+			.peg {
+				width: 150px;
+				height:150px;
+				text-align: center;
+				font-weight: bold;
+				border:1px black solid;
+				padding:25px;
+			}
+
+			.field {
+				background-color: #bbb;
+				margin-top:50px;
+			}
+
+			.slot {
+				margin-right:2px;
+				margin-top:2px;
+				width:100px;
+				height:100px;
+			    display:inline-block;
+			}
+
+			.circle {
+			    -webkit-border-radius: 999px;
+			    -moz-border-radius: 999px;
+			    border-radius: 999px;
+			}
+
+			.red {
+				background-color: red;
+			}
+
+			.blue {
+				background-color: blue;
+			}
+
+			.green {
+				background-color: green;
+			}
+
+			.black {
+				background-color: black;
+				color: white;
+			}
+
+			.white {
+				background-color: white;
+			}
+		</style>
+	</head>
+	<body ng-app="ddApp">
+		<h1>Drag and Drop Directives</h1>
+		<p>Simple directives to enable drag and drop in your application</p>
+
+		<div ng-controller="ddController" style="margin-top:50px;">
+			<div class="row">
+				<div class="col-md-12">
+					<span class="peg circle red" lvl-draggable="true" data-color="red">Red</span>
+					<span class="peg circle green" lvl-draggable="true" data-color="green">Green</span>
+					<span class="peg circle blue" lvl-draggable="true" data-color="blue">Blue</span>
+					<span class="peg circle black" lvl-draggable="true" data-color="black">Black</span>
+					<span class="peg circle white" lvl-draggable="true" data-color="white">White</span>
+				</div>
+			</div>
+
+			<div class="row field">
+				<div ng-repeat="r in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+					<span class="slot circle" ng-repeat="c in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" x-lvl-dropTarget="true" x-on-drop="dropped(dragEl, dropEl)">
+
+					</span>
+					<br/>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script>
+		angular
+			.module('ddApp', ['lvl.directives'])
+			.controller('ddController', ['$scope' , function($scope){
+				$scope.dropped = function(dragEl, dropEl) {
+					var drop = angular.element(dropEl);
+	
+					var bgClass = drop.data('prev');
+					if (bgClass) {
+						drop.removeClass(bgClass);
+					}
+
+					bgClass = angular.element(dragEl).data("color");
+					drop.addClass(bgClass);
+					drop.data('prev', bgClass);
+				}
+			}]);
+	</script>
+</html>
