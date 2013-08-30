@@ -13,7 +13,7 @@ Usage:
 2. include it in your html
 3. inject it into our angular controller
 
-[Live demo](http://logicbomb.github.io/ng-directives/uuid.html
+[Demo](http://logicbomb.github.io/ng-directives/uuid.html
 
 ```html
 	<!-- this line is included before your angular application script -->
