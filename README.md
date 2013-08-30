@@ -24,7 +24,8 @@ Usage:
 ```javascript
 	angular
 		.module('myApplication', ['lvl.services']) //register the factory with your module
-		.controller('myController', ['$scope', 'uuid', function($scope, uuid) { //inject the service into your application
+		.controller('myController', ['$scope', 'uuid', function($scope, uuid) { 
+		//inject the service into your application
 			var newUuid = uuid.new(); //use the service
 			var emptyUuid = uuid.empty(); //use the service
 		}]);
