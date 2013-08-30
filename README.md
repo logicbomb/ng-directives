@@ -1,7 +1,8 @@
 Angular Directives and Services
 =============
 
-**UUID Service**
+UUID Service
+------------
 A very simple service for working with [UUIDs](http://en.wikipedia.org/wiki/Universally_unique_identifier).
 
 Operations:
