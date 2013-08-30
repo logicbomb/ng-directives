@@ -9,17 +9,6 @@ Operations:
 + uuid.empty() - get's an empty UUID ('00000000-0000-0000-0000-000000000000') 
 
 Usage:
-1.  This is a list item with two paragraphs. Lorem ipsum dolor
-    sit amet, consectetuer adipiscing elit. Aliquam hendrerit
-    mi posuere lectus.
-
-    Vestibulum enim wisi, viverra nec, fringilla in, laoreet
-    vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
-    sit amet velit.
-
-2.  Suspendisse id sem consectetuer libero luctus adipiscing.
-
-
 1.  download the file [lvl-uuid.js](https://raw.github.com/logicbomb/ng-directives/master/src/script/lvl-uuid.js)
 2.  include it in your html
 3.  inject it into our angular controller
