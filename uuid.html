@@ -11,7 +11,7 @@
 				<div class="span10 offset2">
 					{{new}}
 					<br/>
-					<small>{{nInfo | date:medium}}</small>
+					<small>{{nInfo | date:mediumDate}} {{nInfo | date:mediumTime}}</small>
 					<br/>
 					<button class="btn btn-primary" ng-click='generateUuid()'>Generate UUID</button>
 				</div>
@@ -20,7 +20,7 @@
 				<div class="span10 offset2">
 					{{empty}}
 					<br/>
-					<small>{{eInfo | date:medium}}
+					<small>{{eInfo | date:mediumDate}} {{eInfo | date:mediumTime}}</small>
 					<br/>
 					<button class="btn btn-primary" ng-click='showEmpty()'>Show empty UUID</button>
 				</div>
