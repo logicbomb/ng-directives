@@ -95,6 +95,12 @@
 		</div>
 		<h3>Relevant Html</h3>
 		<pre>
+		<em><strong>
+		&lt;!-- include the uuid service as well as the directive --&gt;
+		&lt;script src="script/lvl-uuid.js"&gt;&lt;/script&gt;
+		&lt;script src="script/lvl-drag-drop.js"&gt;&lt;/script&gt;
+		</strong></em>
+		
 		&lt;style&gt;
 			<em><strong>.lvl-over</strong></em> {
 				/* applied to a drop target when a draggable object is over it */
@@ -128,7 +134,7 @@
 					&lt;p&gt;Click and drag a color onto the grid to the right&lt;/p&gt;
 					&lt;div class="peg green" <em><strong>x-lvl-draggable="true"</strong></em> data-color="green"&gt;Green&lt;/div&gt;
 					&lt;div class="peg red" <em><strong>x-lvl-draggable="true"</strong></em> data-color="red"&gt;Red&lt;/div&gt;
-					&lt;div class="peg blue"<em><strong>x-lvl-draggable="true"</strong></em> data-color="blue"&gt;Blue&lt;/div&gt;
+					&lt;div class="peg blue" <em><strong>x-lvl-draggable="true"</strong></em> data-color="blue"&gt;Blue&lt;/div&gt;
 					&lt;div class="peg black" <em><strong>x-lvl-draggable="true"</strong></em> data-color="black"&gt;Black&lt;/div&gt;
 					&lt;div class="peg grey" <em><strong>x-lvl-draggable="true"</strong></em> data-color="grey"&gt;Grey&lt;/div&gt;
 				&lt;/div&gt;
@@ -145,9 +151,9 @@
 		<h3>Page Script</h3>
 		<pre>
 		angular
-			.module('ddApp', ['lvl.directives.dragdrop'])
+			.module('ddApp', [<em><strong>'lvl.directives.dragdrop'</strong></em>]) // register the directive with your app module
 			.controller('ddController', ['$scope' , function($scope){
-				$scope.dropped = function(dragEl, dropEl) {
+				<em><strong>$scope.dropped = function(dragEl, dropEl)</em></strong> { // function referenced by the drop target
 					//this is application logic, for the demo we just want to color the grid squares
 					//the directive provides a native dom object, wrap with jqlite
 					var drop = angular.element(dropEl);
@@ -174,8 +180,8 @@
 	</body>
 	<script>
 		angular
-			.module('ddApp', ['lvl.directives.dragdrop'])
-			.controller('ddController', ['$scope' , function($scope){
+			.module('ddApp', ['lvl.directives.dragdrop']) // register the directive with your app module
+			.controller('ddController', ['$scope' , function($scope){ // function referenced by the drop target
 				$scope.dropped = function(dragEl, dropEl) {
 					//this is application logic, for the demo we just want to color the grid squares
 					//the directive provides a native dom object, wrap with jqlite
