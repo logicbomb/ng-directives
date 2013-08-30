@@ -11,7 +11,7 @@
 				<div class="col-md-6">
 					{{new}}
 					<br/>
-					<small>{{nInfo | date:mediumDate}} {{nInfo | date:mediumTime}}</small>
+					<small>{{nInfo | date:'mediumDate'}} {{nInfo | date:'mediumTime'}}</small>
 					<br/>
 					<button class="btn btn-primary" ng-click='generateUuid()'>Generate UUID</button>
 				</div>
@@ -19,7 +19,7 @@
 				<div class="col-md-6">
 					{{empty}}
 					<br/>
-					<small>{{eInfo | date:mediumDate}} {{eInfo | date:mediumTime}}</small>
+					<small>{{eInfo | date:'mediumDate'}} {{eInfo | date:'mediumTime'}}</small>
 					<br/>
 					<button class="btn btn-primary" ng-click='showEmpty()'>Show empty UUID</button>
 				</div>
