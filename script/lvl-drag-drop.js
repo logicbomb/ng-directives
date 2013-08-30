@@ -1,6 +1,32 @@
-angular
-	.module('lvl.directives', ['lvl.services'])
-	.directive('lvlDropTarget', function($rootScope, uuid) {
+var module = angular.module("lvl.directives.dragdrop", ['lvl.services']);
+
+module.directive('lvlDraggable', ['$rootScope', 'uuid', function($rootScope, uuid) {
+	    return {
+	        restrict: 'A',
+	        link: function(scope, el, attrs, controller) {
+	        	console.log("linking draggable element");
+
+	            angular.element(el).attr("draggable", "true");
+	            var id = attrs.id;
+	            if (!attrs.id) {
+	                id = uuid.new()
+	                angular.element(el).attr("id", id);
+	            }
+	            
+	            el.bind("dragstart", function(e) {
+	                e.dataTransfer.setData('text', id);
+
+	                $rootScope.$emit("LVL-DRAG-START");
+	            });
+	            
+	            el.bind("dragend", function(e) {
+	                $rootScope.$emit("LVL-DRAG-END");
+	            });
+	        }
+    	}
+	}]);
+
+module.directive('lvlDropTarget', ['$rootScope', 'uuid', function($rootScope, uuid) {
 	    return {
 	        restrict: 'A',
 	        scope: {
@@ -8,7 +34,7 @@ angular
 	        },
 	        link: function(scope, el, attrs, controller) {
 	        	console.log("linking drop target");
-	        	
+
 	            angular.element(el).attr("draggable", "true");
 	            var id = attrs.id;
 	            if (!attrs.id) {
@@ -35,10 +61,21 @@ angular
 	            });
 	            
 	            el.bind("drop", function(e) {
+	            	var data = e.dataTransfer.getData("text");
 	                var dest = document.getElementById(id);
-	                var src = document.getElementById(e.dataTransfer.getData("text/plain"));
+	                var src = document.getElementById(data);
 	                
 	                scope.onDrop({dragEl: src, dropEl: dest});
+	            });
+
+	            el.bind("dragstart", function(e) {
+	                e.dataTransfer.setData('text', id);
+
+	                $rootScope.$emit("LVL-DRAG-START");
+	            });
+	            
+	            el.bind("dragend", function(e) {
+	                $rootScope.$emit("LVL-DRAG-END");
 	            });
 	            
 	            $rootScope.$on("LVL-DRAG-START", function() {
@@ -53,4 +90,4 @@ angular
 	            });
 	        }
     	}
-	});
+	}]);

@@ -26,24 +26,23 @@
 					<button class="btn btn-primary" ng-click='showEmpty()'>Show empty UUID</button>
 				</div>
 			</div>
-
-			<h3>Page script</h3>
-			<pre>
-			angular
-				.module('uuidApp', ['lvl.services'])
-				.controller('uuidCtl', ['$scope', 'uuid', function($scope, uuid){
-					$scope.generateUuid = function() {
-						$scope.new = uuid.new();
-						$scope.nInfo = new Date();
-					};
-
-					$scope.showEmpty = function() {
-						$scope.empty = uuid.empty();
-						$scope.eInfo = new Date();
-					};
-				}]);
-			</pre>
 		</div>
+		<h3>Page script</h3>
+		<pre>
+		angular
+			.module('uuidApp', ['lvl.services'])
+			.controller('uuidCtl', ['$scope', 'uuid', function($scope, uuid){
+				$scope.generateUuid = function() {
+					$scope.new = uuid.new();
+					$scope.nInfo = new Date();
+				};
+
+				$scope.showEmpty = function() {
+					$scope.empty = uuid.empty();
+					$scope.eInfo = new Date();
+				};
+			}]);
+		</pre>
 
 		<script>
 			angular

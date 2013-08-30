@@ -2,13 +2,12 @@
 	<head>
 		<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 		<script src="script/lvl-uuid.js"></script>
-		<script src="script/lvl-draggable.js"></script>
-		<script src="script/lvl-drop-target.js"></script>
+		<script src="script/lvl-drag-drop.js"></script>
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 		<style>
 			.lvl-over {
 				/* applied to a drop target when a draggable object is over it */
-				border: 2px dotted black;
+				border: 2px dashed black !important;
 			}
 
 			.lvl-target {
@@ -17,32 +16,33 @@
 				opacity: .5;
 			}
 
+			[draggable] {
+				-moz-user-select: none;
+				-khtml-user-select: none;
+				-webkit-user-select: none;
+				user-select: none;
+				/* Required to make elements draggable in old WebKit */
+				-khtml-user-drag: element;
+				-webkit-user-drag: element;
+				cursor: move;
+				border:1px solid black;
+			}
+
 			.peg {
-				width: 150px;
-				height:150px;
 				text-align: center;
 				font-weight: bold;
 				border:1px black solid;
-				padding:25px;
-			}
-
-			.field {
-				background-color: #bbb;
-				margin-top:50px;
+				width: 75px;
+				margin: 10px;
 			}
 
 			.slot {
 				margin-right:2px;
 				margin-top:2px;
-				width:100px;
-				height:100px;
+				width:25;
+				height:25px;
 			    display:inline-block;
-			}
-
-			.circle {
-			    -webkit-border-radius: 999px;
-			    -moz-border-radius: 999px;
-			    border-radius: 999px;
+			    border: none;
 			}
 
 			.red {
@@ -62,8 +62,12 @@
 				color: white;
 			}
 
-			.white {
-				background-color: white;
+			.grey {
+				background-color: grey;
+			}
+
+			pre strong {
+				font-size:12pt;
 			}
 		</style>
 	</head>
@@ -73,40 +77,126 @@
 
 		<div ng-controller="ddController" style="margin-top:50px;">
 			<div class="row">
-				<div class="col-md-12">
-					<span class="peg circle red" lvl-draggable="true" data-color="red">Red</span>
-					<span class="peg circle green" lvl-draggable="true" data-color="green">Green</span>
-					<span class="peg circle blue" lvl-draggable="true" data-color="blue">Blue</span>
-					<span class="peg circle black" lvl-draggable="true" data-color="black">Black</span>
-					<span class="peg circle white" lvl-draggable="true" data-color="white">White</span>
+				<div class="col-md-1 col-md-offset-1">
+					<p>Click and drag a color onto the grid to the right</p>
+					<div class="peg green" x-lvl-draggable="true" data-color="green">Green</div>
+					<div class="peg red" x-lvl-draggable="true" data-color="red">Red</div>
+					<div class="peg blue" x-lvl-draggable="true" data-color="blue">Blue</div>
+					<div class="peg black" x-lvl-draggable="true" data-color="black">Black</div>
+					<div class="peg grey" x-lvl-draggable="true" data-color="grey">Grey</div>
 				</div>
-			</div>
-
-			<div class="row field">
-				<div ng-repeat="r in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
-					<span class="slot circle" ng-repeat="c in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" x-lvl-dropTarget="true" x-on-drop="dropped(dragEl, dropEl)">
-
-					</span>
-					<br/>
+	
+				<div class="col-md-10">
+					<div ng-repeat="r in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
+						<span class="slot" ng-repeat="c in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" x-lvl-drop-target="true" x-on-drop="dropped(dragEl, dropEl)"></span>
+					</div>
 				</div>
 			</div>
 		</div>
-	</body>
-	<script>
+		<h3>Relevant Html</h3>
+		<pre>
+		&lt;style&gt;
+			<em><strong>.lvl-over</strong></em> {
+				/* applied to a drop target when a draggable object is over it */
+				border: 2px dashed black !important;
+			}
+
+			<em><strong>.lvl-target</strong></em> {
+				/* 
+				applied to all drop targets when a drag operation begins 
+				removed when the drag operation ends
+				used to indicate drop targets on a page 
+				*/
+				background-color: #ddd;
+				opacity: .5;
+			}
+
+			[draggable] {
+				/* not applied by the directive, but useful to indicate a draggable element */
+				-moz-user-select: none;
+				-khtml-user-select: none;
+				-webkit-user-select: none;
+				user-select: none;
+				cursor: move;
+				border:1px solid black;
+			}
+		&lt;/style&gt;
+
+		&lt;div ng-controller="ddController" style="margin-top:50px;"&gt;
+			&lt;div class="row"&gt;
+				&lt;div class="col-md-1 col-md-offset-1"&gt;
+					&lt;p&gt;Click and drag a color onto the grid to the right&lt;/p&gt;
+					&lt;div class="peg green" <em><strong>x-lvl-draggable="true"</strong></em> data-color="green"&gt;Green&lt;/div&gt;
+					&lt;div class="peg red" <em><strong>x-lvl-draggable="true"</strong></em> data-color="red"&gt;Red&lt;/div&gt;
+					&lt;div class="peg blue"<em><strong>x-lvl-draggable="true"</strong></em> data-color="blue"&gt;Blue&lt;/div&gt;
+					&lt;div class="peg black" <em><strong>x-lvl-draggable="true"</strong></em> data-color="black"&gt;Black&lt;/div&gt;
+					&lt;div class="peg grey" <em><strong>x-lvl-draggable="true"</strong></em> data-color="grey"&gt;Grey&lt;/div&gt;
+				&lt;/div&gt;
+	
+				&lt;div class="col-md-10"&gt;
+					&lt;div ng-repeat="r in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"&gt;
+						&lt;span class="slot circle" ng-repeat="c in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" <em><strong>x-lvl-drop-target="true" x-on-drop="dropped(dragEl, dropEl)"</strong></em>&gt;&lt;/span&gt;
+					&lt;/div&gt;
+				&lt;/div&gt;
+			&lt;/div&gt;
+		&lt;/div&gt;
+		</pre>
+
+		<h3>Page Script</h3>
+		<pre>
 		angular
-			.module('ddApp', ['lvl.directives'])
+			.module('ddApp', ['lvl.directives.dragdrop'])
 			.controller('ddController', ['$scope' , function($scope){
 				$scope.dropped = function(dragEl, dropEl) {
+					//this is application logic, for the demo we just want to color the grid squares
+					//the directive provides a native dom object, wrap with jqlite
 					var drop = angular.element(dropEl);
-	
-					var bgClass = drop.data('prev');
+					var drag = angular.element(dragEl);
+				
+					//clear the previously applied color, if it exists
+					var bgClass = drop.attr('data-color');
 					if (bgClass) {
 						drop.removeClass(bgClass);
 					}
 
-					bgClass = angular.element(dragEl).data("color");
+					//add the dragged color
+					bgClass = drag.attr("data-color");
 					drop.addClass(bgClass);
-					drop.data('prev', bgClass);
+					drop.attr('data-color', bgClass);
+
+					//if element has been dragged from the grid, clear dragged color
+					if (drag.attr("x-lvl-drop-target")) {
+						drag.removeClass(bgClass);
+					}
+				}
+			}]);
+		</pre>
+	</body>
+	<script>
+		angular
+			.module('ddApp', ['lvl.directives.dragdrop'])
+			.controller('ddController', ['$scope' , function($scope){
+				$scope.dropped = function(dragEl, dropEl) {
+					//this is application logic, for the demo we just want to color the grid squares
+					//the directive provides a native dom object, wrap with jqlite
+					var drop = angular.element(dropEl);
+					var drag = angular.element(dragEl);
+				
+					//clear the previously applied color, if it exists
+					var bgClass = drop.attr('data-color');
+					if (bgClass) {
+						drop.removeClass(bgClass);
+					}
+
+					//add the dragged color
+					bgClass = drag.attr("data-color");
+					drop.addClass(bgClass);
+					drop.attr('data-color', bgClass);
+
+					//if element has been dragged from the grid, clear dragged color
+					if (drag.attr("x-lvl-drop-target")) {
+						drag.removeClass(bgClass);
+					}
 				}
 			}]);
 	</script>
