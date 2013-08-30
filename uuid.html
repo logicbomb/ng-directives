@@ -5,10 +5,12 @@
 		<script src="script/lvl-uuid.js"></script>
 		<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 	</head>
-	<body ng-app="demoApp">
-		<div ng-controller='demoCtl'>
+	<body ng-app="uuidApp">
+		<h1>UUID Service</h1>
+		<p>A very simple service for working with UUIDs</p>
+		<div ng-controller='uuidCtl'>
 			<div class="row">
-				<div class="col-md-6">
+				<div class="col-md-4 col-md-offset-2">
 					{{new}}
 					<br/>
 					<small>{{nInfo | date:'mediumDate'}} {{nInfo | date:'mediumTime'}}</small>
@@ -24,12 +26,29 @@
 					<button class="btn btn-primary" ng-click='showEmpty()'>Show empty UUID</button>
 				</div>
 			</div>
+
+			<h3>Page script</h3>
+			<pre>
+			angular
+				.module('uuidApp', ['lvl.services'])
+				.controller('uuidCtl', ['$scope', 'uuid', function($scope, uuid){
+					$scope.generateUuid = function() {
+						$scope.new = uuid.new();
+						$scope.nInfo = new Date();
+					};
+
+					$scope.showEmpty = function() {
+						$scope.empty = uuid.empty();
+						$scope.eInfo = new Date();
+					};
+				}]);
+			</pre>
 		</div>
 
 		<script>
 			angular
-				.module('demoApp', ['lvl.services'])
-				.controller('demoCtl', ['$scope', 'uuid', function($scope, uuid){
+				.module('uuidApp', ['lvl.services'])
+				.controller('uuidCtl', ['$scope', 'uuid', function($scope, uuid){
 					$scope.generateUuid = function() {
 						$scope.new = uuid.new();
 						$scope.nInfo = new Date();
