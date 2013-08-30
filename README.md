@@ -12,7 +12,7 @@ Operations:
 Usage:
  1. download the file [lvl-uuid.js](https://raw.github.com/logicbomb/ng-directives/master/src/script/lvl-uuid.js)
  2. include it in your html
- 3. inject it into our angular controller
+ 3. inject it into your angular controller
 
 [Live Demo](http://logicbomb.github.io/ng-directives/uuid.html)
 
