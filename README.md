@@ -32,3 +32,45 @@ Usage:
 
 ```
 
+Drag-Drop Directive
+-------------------
+An easy to use, native, directive to enable drag/drop in your angular app.  This directive has no dependency on jQuery or other frameworks, it does require a browser that supports the HTML5 drag/drop events.
+
+[Live Demo](http://logicbomb.github.io/ng-directives/drag-drop.html)
+
+###Drag###
+Add the attribute *x-lvl-draggable='true'* to an element
+
+###Drop###
+Add the attributes
+*x-lvl-drop-target='true'*  Enables dropping on the element
+*x-lvl-on-drop=dropFunction(dragEl, dropEl)*  Specifies the scope function to be called when an element is dropped on the target.  The directive calls the function with the raw DOM elements as parameters.
+
+```html
+<div x-lvl-drop-target='true' x-lvl-on-drop='dropped(dragEl, dropEl)' class='drop-target'></div>
+```
+
+```javascript
+//this code is in your angular controller
+$scope.dropped = function(dragEl, dropEl){
+ //do something with the elements
+};
+```
+
+###CSS###
+2 custom classes are applied during the drag/drop lifecycle
++ lvl-over: applied to a drop target element when a draggable element is over it
++ lvl-target applied to all elements that are decorated with the x-lvl-drop-target attribute while an element is being dragged
+
+You may want to style elements that are draggable by adding a css rule for [draggable]
+
+###Events###
+The directive fires 2 custom events that can you can listen for in your controller.
++ LVL-DRAG-START: fires when a drag operation begins
++ LVL-DRAG-END: fires when a drag operation completes
+
+usage:
+```javascript
+    $scope.on("LVL-DRAG-START", function() {  /* do something when dragging start */ });
+    $scope.on("LVL-DRAG-END", function() {  /* do something when dragging ends */ });
+```
