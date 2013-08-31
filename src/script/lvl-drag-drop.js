@@ -65,6 +65,14 @@ module.directive('lvlDropTarget', ['$rootScope', 'uuid', function($rootScope, uu
 	            });
 	            
 	            el.bind("drop", function(e) {
+					if (e.preventDefault) {
+					e.preventDefault(); // Necessary. Allows us to drop.
+					}
+
+					if (e.stopPropogation) {
+					e.stopPropogation(); // Necessary. Allows us to drop.
+					}
+
 	            	var data = e.dataTransfer.getData("text");
 	                var dest = document.getElementById(id);
 	                var src = document.getElementById(data);
