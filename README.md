@@ -43,8 +43,8 @@ Add the attribute *x-lvl-draggable='true'* to an element
 
 ###Drop###
 Add the attributes
-*x-lvl-drop-target='true'*  Enables dropping on the element
-*x-lvl-on-drop=dropFunction(dragEl, dropEl)*  Specifies the scope function to be called when an element is dropped on the target.  The directive calls the function with the raw DOM elements as parameters.
++*x-lvl-drop-target='true'*  Enables dropping on the element
++*x-lvl-on-drop=dropFunction(dragEl, dropEl)*  Specifies the scope function to be called when an element is dropped on the target.  The directive calls the function with the raw DOM elements as parameters.
 
 ```html
 <div x-lvl-drop-target='true' x-lvl-on-drop='dropped(dragEl, dropEl)' class='drop-target'></div>
