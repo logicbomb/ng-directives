@@ -47,6 +47,10 @@ module.directive('lvlDropTarget', ['$rootScope', 'uuid', function($rootScope, uu
 	                e.preventDefault(); // Necessary. Allows us to drop.
 	              }
 	              
+				  if(e.stopPropagation) { 
+				  	e.stopPropagation(); 
+				  }
+	              
 	              e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
 	              return false;
 	            });
