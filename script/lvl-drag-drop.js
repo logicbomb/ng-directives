@@ -72,16 +72,6 @@ module.directive('lvlDropTarget', ['$rootScope', 'uuid', function($rootScope, uu
 	                scope.onDrop({dragEl: src, dropEl: dest});
 	            });
 
-	            el.bind("dragstart", function(e) {
-	                e.dataTransfer.setData('text', id);
-
-	                $rootScope.$emit("LVL-DRAG-START");
-	            });
-	            
-	            el.bind("dragend", function(e) {
-	                $rootScope.$emit("LVL-DRAG-END");
-	            });
-	            
 	            $rootScope.$on("LVL-DRAG-START", function() {
 	                var el = document.getElementById(id);
 	                angular.element(el).addClass("lvl-target");
