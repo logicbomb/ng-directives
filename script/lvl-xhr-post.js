@@ -3,9 +3,7 @@ var module;
 try {
     module = angular.module('lvl.services');  
 } catch (e) {
-	if (e.toString() === "Error: No module: lvl.services") {
-    	module  = angular.module('lvl.services', []);
-    } else throw e;
+    module  = angular.module('lvl.services', []);
 }
 
 module.factory('fileUploader', ['$rootScope', '$q', function($rootScope, $q) {
@@ -33,6 +31,7 @@ module.factory('fileUploader', ['$rootScope', '$q', function($rootScope, $q) {
 					};
 
 					xhr.upload.onload = function(e) {
+						console.log(JSON.stringify(e));
 						$rootScope.$apply (function() {
 							deferred.resolve(files);
 						})

@@ -10,8 +10,8 @@ angular
 				uploadUrl: '@',
 				maxFiles: '@',
 				maxFileSizeMb: '@',
-				autoStart: '@',
-				beforeStart: '&',
+				autoUpload: '@',
+				beforeUpload: '&',
 				onProgress: '&',
 				onDone: '&',
 				onError: '&'
@@ -19,7 +19,7 @@ angular
 			template: '<span>' + 
 						'<input type="file" style="opacity:0" />' +
 						'<label class="lvl-choose-button" ng-click="choose()">{{chooseFileButtonText}}</label>' +
-						'<span class="lvl-upload-button" ng-show="showUploadButton" ng-click="upload()">{{uploadFileButtonText}}</span>' +
+						'<button class="lvl-upload-button" ng-show="showUploadButton" ng-click="upload()">{{uploadFileButtonText}}</button>' +
 					  '</span>',
 			compile: function compile(tElement, tAttrs, transclude) {
 				var fileInput = angular.element(tElement.children()[0]);
@@ -70,7 +70,7 @@ angular
 							return;
 						}
 
-						if (scope.autoStart) {
+						if (scope.autoUpload && scope.autoUpload.toLowerCase() == 'true') {
 							scope.upload();
 						} else {
 							scope.$apply(function() {
@@ -80,7 +80,7 @@ angular
 					});
 
 					scope.upload = function() {
-						if (scope.beforeStart && !scope.beforeStart({files: scope.files})) {
+						if (scope.beforeUpload && !scope.beforeUpload({files: scope.files})) {
 							return;
 						}
 

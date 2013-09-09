@@ -3,9 +3,7 @@ var module;
 try {
     module = angular.module('lvl.services');  
 } catch (e) {
-    if (e.toString() === "Error: No module: lvl.services") {
-        module  = angular.module('lvl.services', []);
-    } else throw e;
+    module  = angular.module('lvl.services', []);
 }
 
 module.factory('uuid', function() {

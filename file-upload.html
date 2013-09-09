@@ -1,7 +1,7 @@
 <html>
 <head>
 	<title>File Upload Demo</title>
-	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+	<script src="script/lib/angular.js"></script>
 	<script src="script/lvl-uuid.js"></script>
 	<script src="script/lvl-xhr-post.js"></script>
 	<script src="script/lvl-file-upload.js"></script>
@@ -38,13 +38,13 @@
 
 	<div ng-controller='fuCtl' style='margin-top:50px'>
 		<lvl-file-upload
-			auto-start='false'
+			auto-upload='true'
 			choose-file-button-text='choose files'
 			upload-file-button-text='upload files' 
-			upload-url='http://localhost/foo' 
+			upload-url='http://localhost:3000/files' 
 			max-files='2'
 			max-file-size-mb='.5'
-			before-start='start(files)'
+			before-upload='start(files)'
 			on-done='done(files)'
 			on-progress='progress(percentDone)' 
 			on-error='error(files, type, msg)'/>
