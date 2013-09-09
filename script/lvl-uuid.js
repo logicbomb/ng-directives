@@ -1,6 +1,14 @@
-angular
-.module('lvl.services',[])
-.factory('uuid', function() {
+var module;
+
+try {
+    module = angular.module('lvl.services');  
+} catch (e) {
+    if (e.toString() === "Error: No module: lvl.services") {
+        module  = angular.module('lvl.services', []);
+    } else throw e;
+}
+
+module.factory('uuid', function() {
     var svc = {
         new: function() {
             function _p8(s) {
