@@ -1,13 +1,14 @@
 <html>
 <head>
 	<title>File Upload Demo</title>
-	<script src="script/lib/angular.js"></script>
-	<!--
+	<!-- This version of angular supports q.deferred.notify-->
+	<script src="../lib/angular.js"></script>
+	<!-- This version of angular doesn't support it
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 	-->
-	<script src="script/lvl-uuid.js"></script>
-	<script src="script/lvl-xhr-post.js"></script>
-	<script src="script/lvl-file-upload.js"></script>
+	<script src="../script/lvl-uuid.js"></script>
+	<script src="../script/lvl-xhr-post.js"></script>
+	<script src="../script/lvl-file-upload.js"></script>
 	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
 	<style>
 		.lvl-upload-container {
@@ -45,9 +46,9 @@
 			choose-file-button-text='choose files'
 			upload-file-button-text='upload files' 
 			upload-url='http://localhost:3000/files' 
-			max-files='2'
-			max-file-size-mb='.5'
-			before-upload='start(files)'
+			max-files='10'
+			max-file-size-mb='5'
+			get-additional-data='getData(files)'
 			on-done='done(files, data)'
 			on-progress='progress(percentDone)' 
 			on-error='error(files, type, msg)'/>
@@ -69,10 +70,8 @@
 				writeFiles(files);
 			};
 
-			$scope.start = function(files) {
-				log("upload starting");
-
-				return true;
+			$scope.getData = function(files) {
+				return {msg: "from the client", date: new Date()};
 			};
 
 			$scope.error = function(files, type, msg) {

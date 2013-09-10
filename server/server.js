@@ -17,23 +17,20 @@ var allowCrossDomain = function(req, res, next) {
 };
 app.use(allowCrossDomain);
 
-app.get('/', function(req, res) {
-	res.send("hello world");
-})
-
 app.post('/files', function(req, res){
-	console.log(req.body);
+	Object.keys(req.body).forEach(function(key) {
+		console.log("form[" + key + "] = " + req.body[key]);
+	});
+
 	var data = {
 		msg: "/files/post"
 	};
 
-	if (req.files.files && req.files.files[0] && req.files.files[0].length)
-	{
-		data.msg = req.files.files[0].length + " files posted";
-		for (var i = 0; i < req.files.files[0].length; i++) {
-			console.log(JSON.stringify(req.files.files[0][i]));
-		}
-	}
+	data.msg = Object.keys(req.files).length + " files posted";
+	Object.keys(req.files).forEach(function(key) {
+		var file = req.files[key];
+		console.log('Found a file named ' + key + ', it is ' + file.size + ' bytes');
+	});
 
   	res.send(data);
 });
