@@ -1,0 +1,110 @@
+<html>
+<head>
+	<title>File Upload Demo</title>
+	<script src="script/lib/angular.js"></script>
+	<!--
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+	-->
+	<script src="script/lvl-uuid.js"></script>
+	<script src="script/lvl-xhr-post.js"></script>
+	<script src="script/lvl-file-upload.js"></script>
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<style>
+		.lvl-upload-container {
+			width: 350px;
+		}
+
+		.lvl-file-input {
+		}
+
+		.lvl-input-button {
+			color: #ffffff;
+			text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+			background-color: #006dcc;
+			*background-color: #0044cc;
+			background-image: -moz-linear-gradient(top, #0088cc, #0044cc);
+			background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0044cc));
+			background-image: -webkit-linear-gradient(top, #0088cc, #0044cc);
+			background-image: -o-linear-gradient(top, #0088cc, #0044cc);
+			background-image: linear-gradient(to bottom, #0088cc, #0044cc);
+			background-repeat: repeat-x;
+			border-color: #0044cc #0044cc #002a80;
+			border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
+			filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+		}
+	</style>
+</head>
+<body ng-app="fuApp">
+	<h1>File Upload Directive</h1>
+	<p>A directive for posting files as json to a server</p>
+
+	<div ng-controller='fuCtl' style='margin-top:50px'>
+		<lvl-file-upload
+			auto-upload='true'
+			choose-file-button-text='choose files'
+			upload-file-button-text='upload files' 
+			upload-url='http://localhost:3000/files' 
+			max-files='2'
+			max-file-size-mb='.5'
+			before-upload='start(files)'
+			on-done='done(files, data)'
+			on-progress='progress(percentDone)' 
+			on-error='error(files, type, msg)'/>
+	</div>
+
+	<div id='console' style="margin:25px;padding:5px;width:850px;overflow:auto;height:250px;background-color:black;color:green;font-family:monospace;font-size:10pt"></div>
+</body>
+<script>
+	angular
+		.module('fuApp', ['lvl.directives.fileupload'])
+		.controller('fuCtl', ['$scope', function($scope) {
+			$scope.progress = function(percentDone) {
+				log("progress: " + percentDone + "%");
+			};
+
+			$scope.done = function(files, data) {
+				log("upload complete");
+				log("data: " + JSON.stringify(data));
+				writeFiles(files);
+			};
+
+			$scope.start = function(files) {
+				log("upload starting");
+
+				return true;
+			};
+
+			$scope.error = function(files, type, msg) {
+				log("Upload error: " + msg);
+				log("Error type:" + type);
+				writeFiles(files);
+			}
+
+			function writeFiles(files) 
+			{
+				var msg = "Files<ul>";
+				for (var i = 0; i < files.length; i++) {
+					msg += "<li>" + files[i].name + "</li>";
+				}
+				msg += "</ul>";
+
+				log(msg);
+			}
+
+			var elem = document.getElementById("console");
+			var console = angular.element(elem);
+			function log(msg) {
+				var html = console.html();
+				if (html.length) {
+					html += "<br />";
+				} 
+
+				html += msg;
+				console.html(html);
+
+				elem.scrollTop = elem.scrollHeight;
+			}
+		}]);
+</script>
+</html>
