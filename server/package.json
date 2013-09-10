@@ -1,0 +1,17 @@
+{
+  "name": "xhr-test",
+  "version": "0.1.0",
+  "description": "A simple server to test the file-upload service and directive",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~3.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": "git@github.com:logicbomb/ng-directives.git",
+  "author": "Jason Turim",
+  "license": "MIT"
+}
