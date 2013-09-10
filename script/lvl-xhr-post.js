@@ -58,9 +58,12 @@ module.factory('fileUploader', ['$rootScope', '$q', function($rootScope, $q) {
 					}
 
 					var formData = new FormData();
-					Object.keys(data).forEach(function(key) {
-						formData.append(key, data[key]);
-					});
+
+					if (data) {
+						Object.keys(data).forEach(function(key) {
+							formData.append(key, data[key]);
+						});
+					}
 
 					for (var idx = 0; idx < files.length; idx++) {
 						formData.append(files[idx].name, files[idx]);

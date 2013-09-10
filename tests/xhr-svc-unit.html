@@ -5,8 +5,8 @@
 	<script src="../script/lvl-uuid.js"></script>
 	<script src="../script/lvl-xhr-post.js"></script>
 	<script src="../lib/jasmine/jasmine.js"></script>
-	<script src="../lib/jasmine/jasmine-html.js"></script>
 	<script src="../lib/jasmine/jasmine-ajax.js"></script>
+	<script src="../lib/jasmine/jasmine-html.js"></script>
 	<script src="http://code.angularjs.org/1.0.7/angular-mocks.js"></script>
 	<link href="../lib/jasmine/jasmine.css" rel="stylesheet" />
 </head>
@@ -65,7 +65,7 @@
 				
 				var calls = 0;
 				var progressCallback = function(percentCompleted) { calls++; }
-				fileUploader.post([1], progressCallback).to("/foo/bar");
+				fileUploader.post([1], null, progressCallback).to("/foo/bar");
 
 				expect(deferred.promise).toBeDefined();
 				expect(calls).toEqual(1);
