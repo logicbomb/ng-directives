@@ -11,7 +11,7 @@ angular
 				maxFiles: '@',
 				maxFileSizeMb: '@',
 				autoUpload: '@',
-				beforeUpload: '&',
+				getAdditionalData: '&',
 				onProgress: '&',
 				onDone: '&',
 				onError: '&'
@@ -80,15 +80,16 @@ angular
 					});
 
 					scope.upload = function() {
-						if (scope.beforeUpload && !scope.beforeUpload({files: scope.files})) {
-							return;
+						var data = null;
+						if (scope.getAdditionalData) {
+							data = scope.getAdditionalData();
 						}
 
 						if (angular.version.major <= 1 && angular.version.minor < 2 ) {
 							//older versions of angular's q-service don't have a notify callback
 							//pass the onProgress callback into the service
 							fileUploader
-								.post(scope.files, function(complete) { scope.onProgress({percentDone: complete}); })
+								.post(scope.files, data, function(complete) { scope.onProgress({percentDone: complete}); })
 								.to(scope.uploadUrl)
 								.then(function(ret) {
 									scope.onDone({files: ret.files, data: ret.data});
@@ -97,7 +98,7 @@ angular
 								})
 						} else {
 							fileUploader
-								.post(scope.files)
+								.post(scope.files, data)
 								.to(scope.uploadUrl)
 								.then(function(ret) {
 									scope.onDone({files: ret.files, data: ret.data});

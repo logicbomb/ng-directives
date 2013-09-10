@@ -8,7 +8,7 @@ try {
 
 module.factory('fileUploader', ['$rootScope', '$q', function($rootScope, $q) {
 	var svc = {
-		post: function(files, progressCb) {
+		post: function(files, data, progressCb) {
 
 			return {
 				to: function(uploadUrl)
@@ -58,8 +58,12 @@ module.factory('fileUploader', ['$rootScope', '$q', function($rootScope, $q) {
 					}
 
 					var formData = new FormData();
+					Object.keys(data).forEach(function(key) {
+						formData.append(key, data[key]);
+					});
+
 					for (var idx = 0; idx < files.length; idx++) {
-						formData.append("files[]", files[idx]);
+						formData.append(files[idx].name, files[idx]);
 					}
 
 					xhr.open("POST", uploadUrl);
