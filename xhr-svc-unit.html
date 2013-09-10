@@ -1,13 +1,12 @@
 <html>
 <head>
 	<title>XHR Post Service Tests</title>
-	<script src="script/lib/angular.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 	<script src="script/lvl-uuid.js"></script>
 	<script src="script/lvl-xhr-post.js"></script>
 	<script src="script/lib/jasmine/jasmine.js"></script>
-	<script src="script/lib/jasmine/jasmine-html.js"></script>
 	<script src="script/lib/jasmine/jasmine-ajax.js"></script>
-	<script src="script/lib/sinon.js"></script>
+	<script src="script/lib/jasmine/jasmine-html.js"></script>
 	<script src="http://code.angularjs.org/1.0.7/angular-mocks.js"></script>
 	<link href="script/lib/jasmine/jasmine.css" rel="stylesheet" />
 </head>
@@ -16,12 +15,10 @@
 		var rootScope, q, deferred;
 		function setupTest() {
 			FakeXMLHttpRequest.prototype.upload = jasmine.createSpyObj('upload', ['onprogress', 'onload', 'onerror']);
-			
 			jasmine.Ajax.useMock();
 
 			rootScope = {$apply: function(func) {func();}};
 			spyOn(rootScope, '$apply').andCallThrough();
-
 			deferred = jasmine.createSpyObj('deferred', ['promise', 'reject', 'resolve', 'notify']);
 			q = {
 				defer: function() { return deferred; }
@@ -31,13 +28,15 @@
 		describe("Succesfully upload files", function() {
 			beforeEach(function() {
 				FakeXMLHttpRequest.prototype.send = function(data) {
-					FakeXMLHttpRequest.prototype.upload.onprogress({
+					this.upload.onprogress({
 						lengthComputable: true,
 						total: 100,
 						loaded: 75
 					});
 
-					FakeXMLHttpRequest.prototype.upload.onload([1]);
+					this.responseText = '{"msg": "server-data"}';
+					this.status = 200;
+					this.onload(this);
 				};
 				setupTest();
 				module(function($provide) {
@@ -66,7 +65,7 @@
 				
 				var calls = 0;
 				var progressCallback = function(percentCompleted) { calls++; }
-				fileUploader.post([1], progressCallback).to("/foo/bar");
+				fileUploader.post([1], null, progressCallback).to("/foo/bar");
 
 				expect(deferred.promise).toBeDefined();
 				expect(calls).toEqual(1);
