@@ -60,6 +60,21 @@
 				expect(deferred.resolve.calls.length).toEqual(1);
 				expect(deferred.reject.calls.length).toEqual(0);
 			}));
+
+			it ("uses the progress callback parameter if specified", inject(function(fileUploader) {
+				expect(fileUploader).not.toBe(null);
+				
+				var calls = 0;
+				var progressCallback = function(percentCompleted) { calls++; }
+				fileUploader.post([1], progressCallback).to("/foo/bar");
+
+				expect(deferred.promise).toBeDefined();
+				expect(calls).toEqual(1);
+				expect(rootScope.$apply.calls.length).toEqual(2);
+				expect(deferred.notify.calls.length).toEqual(0);
+				expect(deferred.resolve.calls.length).toEqual(1);
+				expect(deferred.reject.calls.length).toEqual(0);
+			}));
 		});
 
 		describe("Error uploading files", function() {

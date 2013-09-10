@@ -8,10 +8,10 @@ try {
 
 module.factory('fileUploader', ['$rootScope', '$q', function($rootScope, $q) {
 	var svc = {
-		post: function(files) {
+		post: function(files, progressCb) {
 
 			return {
-				to: function(uploadUrl) 
+				to: function(uploadUrl)
 				{
 					var deferred = $q.defer()
 					if (!files || !files.length) {
@@ -25,15 +25,22 @@ module.factory('fileUploader', ['$rootScope', '$q', function($rootScope, $q) {
 							var percentCompleted;
 						    if (e.lengthComputable) {
 						        percentCompleted = Math.round(e.loaded / e.total * 100);
-						        deferred.notify(percentCompleted);
+						        if (progressCb) {
+						        	progressCb(percentCompleted);
+						        } else if (deferred.notify) {
+							        deferred.notify(percentCompleted);
+							    }
 						    }
 						});
 					};
 
-					xhr.upload.onload = function(e) {
-						console.log(JSON.stringify(e));
+					xhr.onload = function(e) {
 						$rootScope.$apply (function() {
-							deferred.resolve(files);
+							var ret = {
+								files: files,
+								data: angular.fromJson(xhr.responseText)
+							};
+							deferred.resolve(ret);
 						})
 					};
 

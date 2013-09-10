@@ -84,16 +84,29 @@ angular
 							return;
 						}
 
-						fileUploader
-							.post(scope.files)
-							.to(scope.uploadUrl)
-							.then(function(data) {
-								scope.onDone({files: data});
-							}, function(error) {
-								scope.onError({files: scope.files, type: 'UPLOAD_ERROR', msg: error});
-							},  function(progress) {
-								scope.onProgress({percentDone: progress});
-							});
+						if (angular.version.major <= 1 && angular.version.minor < 2 ) {
+							//older versions of angular's q-service don't have a notify callback
+							//pass the onProgress callback into the service
+							fileUploader
+								.post(scope.files, function(complete) { scope.onProgress({percentDone: complete}); })
+								.to(scope.uploadUrl)
+								.then(function(ret) {
+									scope.onDone({files: ret.files, data: ret.data});
+								}, function(error) {
+									scope.onError({files: scope.files, type: 'UPLOAD_ERROR', msg: error});
+								})
+						} else {
+							fileUploader
+								.post(scope.files)
+								.to(scope.uploadUrl)
+								.then(function(ret) {
+									scope.onDone({files: ret.files, data: ret.data});
+								}, function(error) {
+									scope.onError({files: scope.files, type: 'UPLOAD_ERROR', msg: error});
+								},  function(progress) {
+									scope.onProgress({percentDone: progress});
+								});
+						}
 
 						resetFileInput();
 					};

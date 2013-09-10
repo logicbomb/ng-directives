@@ -2,6 +2,9 @@
 <head>
 	<title>File Upload Demo</title>
 	<script src="script/lib/angular.js"></script>
+	<!--
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+	-->
 	<script src="script/lvl-uuid.js"></script>
 	<script src="script/lvl-xhr-post.js"></script>
 	<script src="script/lvl-file-upload.js"></script>
@@ -45,7 +48,7 @@
 			max-files='2'
 			max-file-size-mb='.5'
 			before-upload='start(files)'
-			on-done='done(files)'
+			on-done='done(files, data)'
 			on-progress='progress(percentDone)' 
 			on-error='error(files, type, msg)'/>
 	</div>
@@ -60,9 +63,9 @@
 				log("progress: " + percentDone + "%");
 			};
 
-			$scope.done = function(files) {
-				log("upload complete: ");
-
+			$scope.done = function(files, data) {
+				log("upload complete");
+				log("data: " + JSON.stringify(data));
 				writeFiles(files);
 			};
 
