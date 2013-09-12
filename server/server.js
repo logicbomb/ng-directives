@@ -18,9 +18,9 @@ var allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 
 app.post('/files', function(req, res){
-	Object.keys(req.body).forEach(function(key) {
-		console.log("form[" + key + "] = " + req.body[key]);
-	});
+	if (req.body) {
+		console.log(JSON.stringify(req.body));
+	}
 
 	var data = {
 		msg: "/files/post"
