@@ -10,7 +10,7 @@ An easy to use, native, directive to enable drag/drop in your angular app.  This
 ##File Upload Directive##
 A native directive that supports uploading multiple files and data.  It exposes a simple API that a parent scope can use to track upload progress, errors and completion.
 
-The [demo](http://github.com/logicbomb/ng-directives/tests/xhr-svc-integration.html) requires node.js and the express package so files can be posted to a [server](http://github.com/logicbomb/ng-directives/server/server.js).
+The [demo](https://github.com/logicbomb/ng-directives/blob/master/tests/xhr-svc-integration.html) requires node.js and the express package so files can be posted to a [server](http://github.com/logicbomb/ng-directives/server/server.js).
 
 [Documentation](http://jasonturim.wordpress.com/2013/09/11/angularjs-native-multi-file-upload-with-progress)
 
