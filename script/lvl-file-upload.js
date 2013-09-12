@@ -132,8 +132,10 @@ angular
 						input.setAttributeNode(attr);
 
 						attr = document.createAttribute("style");
-						attr.nodeValue = "opacity: 0";
+						attr.nodeValue = "opacity: 0;display:inline;width:0";
 						input.setAttributeNode(attr);
+
+
 
 						if (scope.maxFiles > 1) {
 							attr = document.createAttribute("multiple");
