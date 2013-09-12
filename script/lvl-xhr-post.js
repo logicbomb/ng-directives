@@ -51,12 +51,6 @@ module.factory('fileUploader', ['$rootScope', '$q', function($rootScope, $q) {
 						});
 					}
 
-					xhr.onreadystatechange == function() {
-						console.log("xhr.readystate: " + xhr.readystate);
-						console.log("xhr.status : " + xhr.status);
-						console.log("xhr.responseText : " + xhr.responseText);
-					}
-
 					var formData = new FormData();
 
 					if (data) {
