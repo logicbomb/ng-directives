@@ -66,7 +66,7 @@ angular
 						}
 
 						if (tooBig.length > 0) {
-							raiseError(tooBig, 'UPLOAD_MAX_EXCEEDED', "Files are larger than the specified max (" + scope.maxFileSizeMb + "MB)");
+							raiseError(tooBig, 'MAX_SIZE_EXCEEDED', "Files are larger than the specified max (" + scope.maxFileSizeMb + "MB)");
 							return;
 						}
 
