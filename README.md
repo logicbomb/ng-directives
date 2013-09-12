@@ -12,7 +12,7 @@ A native directive that supports uploading multiple files and data.  It exposes 
 
 The [demo](https://github.com/logicbomb/ng-directives/blob/master/tests/xhr-svc-integration.html) requires node.js and the express package so files can be posted to a [server](https://github.com/logicbomb/ng-directives/blob/master/server/server.js).
 
-[Documentation](http://jasonturim.wordpress.com/2013/09/11/angularjs-native-multi-file-upload-with-progress)
+[Documentation](http://jasonturim.wordpress.com/2013/09/12/angularjs-native-multi-file-upload-with-progress/)
 
 #Services#
 
@@ -28,5 +28,5 @@ A service that posts files and data to a url, and uses promises and callbacks to
 
 [Unit Test](http://logicbomb.github.io/ng-directives/xhr-svc-unit.html)
 
-[Documentation](http://jasonturim.wordpress.com/2013/09/11/angularjs-native-multi-file-upload-with-progress)
+[Documentation](http://jasonturim.wordpress.com/2013/09/12/angularjs-native-multi-file-upload-with-progress/)
 
