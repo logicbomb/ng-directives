@@ -1,6 +1,6 @@
 angular
 	.module("lvl.directives.fileupload", ['lvl.services'])
-	.directive('lvlFileUpload', ['$timeout', 'uuid', 'fileUploader', function($timeout, uuid, fileUploader) {
+	.directive('lvlFileUpload', ['uuid', 'fileUploader', function(uuid, fileUploader) {
 		return {
 			restrict: 'E',
 			replace: true,
@@ -66,7 +66,7 @@ angular
 						}
 
 						if (tooBig.length > 0) {
-							raiseError(tooBig, 'UPLOAD_MAX_EXCEEDED', "Files are larger than the specified max (" + scope.maxFileSizeMb + "MB)");
+							raiseError(tooBig, 'MAX_SIZE_EXCEEDED', "Files are larger than the specified max (" + scope.maxFileSizeMb + "MB)");
 							return;
 						}
 
