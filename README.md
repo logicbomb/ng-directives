@@ -8,6 +8,7 @@ I am cleaning up this repository and listing the directives with [http://ngmodul
 I will continue to post new directives on [my blog](http://jasonturim.wordpress.com).
 
 cheers,
+
 jason
 
 
