@@ -1,0 +1,186 @@
+<html>
+	<head>
+		<title>Tag Editor Demo</title>
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+		<script src="script/lib/angular.js"></script>
+		<script src="script/lvl-uuid.js"></script>
+		<script src="script/lvl-tag-editor.js"></script>
+	</head>
+	<body ng-app='tagApp' ng-controller='tagCtl'>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="jumbotron">
+						<div class="container">
+							<h1>Tag Editor Demo</h1>
+							<p>A native directive for editing and displaying tags</p>
+						</div>
+					</div>
+				</div>
+			</div>
+      </div>
+      <div class="container">
+			<div class="row">
+				<div class="col-md-12" role="main">
+					<h2>Edit Mode</h2>
+					<pre style="width:100%">
+&lt;lvl-tag-editor
+  use-default-css='true' <em>&larr;'false' to provide your own styles</em>
+  focus-input='true' <em>&larr;optional, include to grab focus </em>
+  tags='tags' <em>&larr;the array containing tags on the parent scope </em>
+  on-hover='hover(tag, elementPos)' <em>&larr;callback when mouse hovers over a tag </em>
+  on-hover-out='hoverOut()' <em>&larr;callback when mouse stops hovering over tag  </em>
+  on-validate='validate(tag)' <em>&larr;callback before tag is added, return false to prevent </em>
+&gt;&lt;/lvl-tag-editor&gt;
+					</pre>
+
+					<ul>
+						<li>Enter text in the input element</li>
+						<li>Press 'enter' or blur focus to add the tag</li>
+						<li>The tag 'flarn' fails validation</li>
+					</ul>
+					<div style='margin-top:15px'>
+						<span style="font-size: 36pt">&rarr;</span>
+						<lvl-tag-editor
+						    use-default-css='true'
+						    focus-input='true'
+						    tags='tags'
+						    on-hover='hover(tag, elementPos)'
+						    on-hover-out='hoverOut()'
+						    on-validate='validate(tag)'
+						    style="display:inline-block"
+					    ></lvl-tag-editor>
+					</div>
+					<div ng-show='error' class='alert alert-danger'>
+						<strong>Invalid Tag</strong> The word 'flarn' cannot be used as a tag!
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12" role="main">
+					<h2>Read Only Mode</h2>
+<pre>
+&lt;lvl-tag-editor
+  use-default-css='false' <em>&larr;styles already present on the page</em>
+  read-only='true' <em>&larr;enable read-only mode</em>
+  tags='tags' <em>&larr;the array containing tags on the parent scope </em>
+  on-hover='hover(tag, elementPos)' <em>&larr;callback when mouse hovers over a tag </em>
+  on-hover-out='hoverOut()' <em>&larr;callback when mouse stops hovering over tag  </em>
+&gt;&lt;/lvl-tag-editor&gt;
+</pre>
+					<div style='margin-top:15px'>
+						<span style="font-size: 36pt">&rarr;</span>
+						<lvl-tag-editor
+						    use-default-css='false'
+						    read-only='true'
+						    tags='tags'
+						    on-hover='hover(tag, elementPos)'
+						    on-hover-out='hoverOut()'
+						    style="display:inline-block"
+						></lvl-tag-editor>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div>
+						<h2>Page Script</h2>
+						<pre>
+angular
+  .module('tagApp', ['lvl.services', 'lvl.directives.tageditor'])
+  .controller('tagCtl', ['$scope', '$timeout', "uuid", function($scope, $timeout, uuid) {
+  	$scope.selected = null;
+  	
+  	$scope.tags = [
+  		{Name: "one", Id: uuid.new(), Description: "the one tag"}, 
+  		{Name: "two", Id: uuid.new(), Description: "the two tag"},
+  		{Name: "three", Id: uuid.new(), Description: "the three tag"}];
+  
+  	$scope.hover = function(tag, elementPos) {
+  		$scope.selected = tag;
+  		$scope.selectedPos = elementPos;
+  	};
+  
+  	$scope.hoverOut = function() {
+  		$scope.selected = null;
+  	};
+  
+  	$scope.validate = function(tag) {
+  		var isValid = (tag.Name != 'flarn');
+  		if (!isValid) {
+  			$scope.error = true;
+  			$timeout(function() {
+  				$scope.error = false;
+  			}, 2500);
+  		}
+  
+  		return isValid;
+  	};
+  
+  }]);
+						</pre>
+					</div>
+
+					<div>
+						<h2>Pop-up HTML</h2>
+						<pre>
+&lt;div id="popup" ng-show="selected" style="border:2px brown solid;border-radius:15px;position:fixed;background-color:orange;padding:5px" ng-style="{top: (selectedPos.bottom + 2) + 'px', left: (selectedPos.left - 5) + 'px'}"&gt;
+	&lt;strong&gt;Tag&lt;/strong&gt;
+	&lt;br/&gt;
+	&lt;pre style='border-radius:15px;background-color:orange;border-color:brown'&gt;<code ng-non-bindable>{{ selected | json }}</code>&lt;/pre&gt;
+
+	&lt;strong&gt;Position&lt;/strong&gt;
+	&lt;pre style='border-radius:15px;background-color:orange;border-color:brown'&gt;<code ng-non-bindable>{{ selectedPos | json }}</code>&lt;/pre&gt;
+&lt;/div&gt;
+								</pre>
+				</div>
+			</div>
+		</div>
+
+		<div id="popup" ng-show="selected" style="border:2px brown solid;border-radius:15px;position:fixed;background-color:orange;padding:5px;opacity:.9" ng-style="{top: (selectedPos.bottom + 2) + 'px', left: (selectedPos.left - 5) + 'px'}">
+			<strong>Tag</strong>
+			<br/>
+			<pre style='border-radius:15px;background-color:orange;border-color:brown'>{{ selected | json }}</pre>
+
+			<strong>Position</strong>
+			<pre style='border-radius:15px;background-color:orange;border-color:brown'>{{ selectedPos | json }}</pre>
+		</div>
+	</body> 
+
+	<script>
+		angular
+			.module('tagApp', ['lvl.services', 'lvl.directives.tageditor'])
+			.controller('tagCtl', ['$scope', '$timeout', "uuid", function($scope, $timeout, uuid) {
+				$scope.selected = null;
+				
+				$scope.tags = [
+					{Name: "one", Id: uuid.new(), Description: "the one tag"}, 
+					{Name: "two", Id: uuid.new(), Description: "the two tag"},
+					{Name: "three", Id: uuid.new(), Description: "the three tag"}];
+
+				$scope.hover = function(tag, elementPos) {
+					$scope.selected = tag;
+					$scope.selectedPos = elementPos;
+				};
+
+				$scope.hoverOut = function() {
+					$scope.selected = null;
+				};
+
+				$scope.validate = function(tag) {
+					var isValid = (tag.Name != 'flarn');
+					if (!isValid) {
+						$scope.error = true;
+						$timeout(function() {
+							$scope.error = false;
+						}, 2500);
+					}
+
+					return isValid;
+				};
+
+			}]);
+	</script>
+</html>
