@@ -2,8 +2,12 @@
 	<head>
 		<title>Tag Editor Demo</title>
 		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-		<script src="script/lib/angular.js"></script>
-		<script src="script/lvl-uuid.js"></script>
+		<!--
+		<script src="lib/angular.js"></script>
+		-->
+		<script src="http://code.angularjs.org/1.0.8/angular.js"></script>
+		
+		<script src="lib/lvl-uuid.js"></script>
 		<script src="script/lvl-tag-editor.js"></script>
 	</head>
 	<body ng-app='tagApp' ng-controller='tagCtl'>
@@ -48,7 +52,6 @@
 						    on-hover='hover(tag, elementPos)'
 						    on-hover-out='hoverOut()'
 						    on-validate='validate(tag)'
-						    style="display:inline-block"
 					    ></lvl-tag-editor>
 					</div>
 					<div ng-show='error' class='alert alert-danger'>

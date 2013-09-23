@@ -9,7 +9,11 @@ angular
 "    display: inline-block; " +
 "} " +
 " " +
-"li.tag " +
+".tag-editor { " +
+"   display: inline-block; " +
+"} " +
+" " +
+".tag-item " +
 "{ " +
 "    overflow: hidden; " +
 "    height: auto !important; " +
@@ -38,7 +42,7 @@ angular
 "    font-size: 6pt;" +
 " }" +
 " " +
-"li.tag p " +
+".tag-name " +
 "{ " +
 "    margin: 0; " +
 "    display: inline-block; " +
@@ -88,26 +92,26 @@ angular
 
     return {
         restrict: 'E',
-        template: '<div> ' +
-'    <div class="tag-editor"> ' +
-'        <input ' +
-'            type="text" ' +
-'            ng-model="currentTag.Name" ' +
-'            style="display: inline-block" /> ' +
-'        <small class="tag-caption" ng-show="caption">{{caption}}</small> ' +
-'  </div> ' +
-' ' +
-'    <div ng-show="tags.length" class="tag-editor"> ' +
-'        <ul class="tag-list"> ' +
-'            <li class="tag" ng-repeat="tag in tags" class="icon-question-sign" ng-mouseover="over($event)" ng-mouseleave="out($event)" data-tag-id={{tag.Id}}> ' +
-'                <p> ' +
-'                    {{tag.Name}} ' +
-'                </p> ' +
-'                <div class="tag-action delete-tag" ng-hide="readOnly" ng-click="removeTag(tag)" title="remove tag"></div> ' +
-'                <div class="tag-action edit-tag" ng-hide="readOnly" ng-click="editTag(tag)" title="edit tag"></div> ' +
-'            </li> ' +
-'        </ul> ' +
-'    </div> ' +
+        template: ' ' +
+'<div class="tag-editor"> ' +
+'   <div> ' +
+'       <input ' +
+'           type="text" ' +
+'           ng-model="currentTag.Name" ' +
+'           style="display: inline-block" /> ' +
+'       <small class="tag-caption" ng-show="caption">{{caption}}</small> ' +
+'   </div> ' +
+'   <div ng-show="tags.length"> ' +
+'      <ul class="tag-list"> ' +
+'          <li ng-repeat="tag in tags" class="tag-item" ng-mouseover="over($event)" ng-mouseleave="out($event)" data-tag-id={{tag.Id}}> ' +
+'              <p class="tag-name"> ' +
+'                  {{tag.Name}} ' +
+'              </p> ' +
+'              <div class="tag-action delete-tag" ng-hide="readOnly" ng-click="removeTag(tag)" title="remove tag"></div> ' +
+'              <div class="tag-action edit-tag" ng-hide="readOnly" ng-click="editTag(tag)" title="edit tag"></div> ' +
+'          </li> ' +
+'      </ul> ' +
+'   </div> ' +
 '</div>',
         replace: true,
         scope: {
